@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Register - Fit Buddy{% endblock %}
+{% block content %}
+<div class="auth-page">
+    <div class="auth-card">
+        <div class="auth-logo">🚀</div>
+        <h2>Create your account</h2>
+        <p class="text-muted">Start building your personal fitness plan.</p>
+        <form method="post">
+            <label>Name</label>
+            <input class="form-control mb-3" name="name" placeholder="Your name" required>
+            <label>Email</label>
+            <input class="form-control mb-3" type="email" name="email" placeholder="you@example.com" required>
+            <label>Password</label>
+            <input class="form-control mb-3" type="password" name="password" minlength="6" placeholder="Minimum 6 characters" required>
+            <button class="btn btn-primary w-100 py-2">Create Account</button>
+        </form>
+        <p class="text-center mt-4 mb-0">Already have an account?
+            <a href="{{ url_for('auth.login') }}">Login</a>
+        </p>
+    </div>
+</div>
+{% endblock %}

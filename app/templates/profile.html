@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+{% block title %}My Fitness Profile{% endblock %}
+{% block content %}
+<div class="container page-wrap">
+    <div class="page-title">
+        <div>
+            <span class="small-label">STEP 1</span>
+            <h2>My Fitness Profile</h2>
+            <p>Enter your details and we'll use them to prepare your plan.</p>
+        </div>
+        <div class="page-emoji">🏃</div>
+    </div>
+
+    <form method="post" class="card clean-card p-4">
+        <h5 class="form-section-title">Basic Information</h5>
+        <div class="row g-3">
+            <div class="col-md-4">
+                <label>Age</label>
+                <input class="form-control" type="number" name="age" min="13" max="100" required>
+            </div>
+            <div class="col-md-4">
+                <label>Gender</label>
+                <select class="form-select" name="gender">
+                    <option>Male</option><option>Female</option><option>Other</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label>Height (cm)</label>
+                <input class="form-control" type="number" step="0.1" name="height" placeholder="170" required>
+            </div>
+            <div class="col-md-4">
+                <label>Weight (kg)</label>
+                <input class="form-control" type="number" step="0.1" name="weight" placeholder="65" required>
+            </div>
+            <div class="col-md-4">
+                <label>Activity Level</label>
+                <select class="form-select" name="activity">
+                    <option>Sedentary</option>
+                    <option>Lightly Active</option>
+                    <option>Moderately Active</option>
+                    <option>Very Active</option>
+                </select>
+            </div>
+        </div>
+
+        <hr class="my-4">
+
+        <h5 class="form-section-title">Your Fitness Goal</h5>
+        <div class="row g-3">
+            <div class="col-md-6">
+                <label>Goal</label>
+                <select class="form-select" name="goal">
+                    <option>General Fitness</option>
+                    <option>Weight Loss</option>
+                    <option>Muscle Gain</option>
+                    <option>Fat Loss + Muscle Gain</option>
+                </select>
+            </div>
+            <div class="col-md-6">
+                <label>Workout Experience</label>
+                <select class="form-select" name="experience">
+                    <option>Beginner</option>
+                    <option>Intermediate</option>
+                    <option>Advanced</option>
+                </select>
+            </div>
+            <div class="col-md-6">
+                <label>Workout Days / Week</label>
+                <select class="form-select" name="workout_days">
+                    {% for i in range(1,8) %}<option>{{ i }}</option>{% endfor %}
+                </select>
+            </div>
+            <div class="col-md-6">
+                <label>Diet Preference</label>
+                <select class="form-select" name="diet">
+                    <option>No Preference</option>
+                    <option>Vegetarian</option>
+                    <option>Non-Vegetarian</option>
+                    <option>Vegan</option>
+                </select>
+            </div>
+        </div>
+
+        <hr class="my-4">
+
+        <h5 class="form-section-title">Available Equipment</h5>
+        <div class="equipment-grid">
+            {% for x in ["No Equipment","Dumbbells","Resistance Band","Barbell","Gym Machines"] %}
+            <label class="equipment-option">
+                <input type="checkbox" name="equipment" value="{{ x }}">
+                <span>{{ x }}</span>
+            </label>
+            {% endfor %}
+        </div>
+
+        <div class="tip-box mt-4">
+            <i class="bi bi-lightbulb"></i>
+            <span>Tip: Select only the equipment you can actually use at home or in your gym.</span>
+        </div>
+
+        <button class="btn btn-primary px-4 mt-4">Save My Profile <i class="bi bi-check2"></i></button>
+    </form>
+</div>
+{% endblock %}

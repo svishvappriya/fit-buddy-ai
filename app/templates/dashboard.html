@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% block title %}Dashboard - Fit Buddy{% endblock %}
+{% block content %}
+<div class="container page-wrap">
+    <div class="dashboard-head">
+        <div>
+            <span class="small-label">MY DASHBOARD</span>
+            <h2>Hello, {{ current_user.name }} 👋</h2>
+            <p>Here is a quick look at your fitness information.</p>
+        </div>
+        <a class="btn btn-primary" href="{{ url_for('main.profile') }}"><i class="bi bi-pencil"></i> Update Profile</a>
+    </div>
+
+    {% if profile %}
+    <div class="row g-3">
+        <div class="col-md-4">
+            <div class="stat-card">
+                <div class="stat-icon purple"><i class="bi bi-speedometer2"></i></div>
+                <span>BMI</span>
+                <strong>{{ profile.bmi }}</strong>
+                <small>Based on height & weight</small>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="stat-card">
+                <div class="stat-icon blue"><i class="bi bi-fire"></i></div>
+                <span>Estimated BMR</span>
+                <strong>{{ profile.bmr|int }}</strong>
+                <small>Calories / day</small>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="stat-card">
+                <div class="stat-icon green"><i class="bi bi-activity"></i></div>
+                <span>Maintenance</span>
+                <strong>{{ profile.maintenance_calories|int }}</strong>
+                <small>Estimated calories / day</small>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4 mt-1">
+        <div class="col-lg-7">
+            <div class="card clean-card p-4 h-100">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <span class="small-label">YOUR CURRENT GOAL</span>
+                        <h3 class="mt-1">{{ profile.goal }}</h3>
+                    </div>
+                    <span class="goal-pill">🎯 {{ profile.workout_days }} days/week</span>
+                </div>
+                <div class="profile-summary mt-4">
+                    <div><span>Experience</span><b>{{ profile.experience }}</b></div>
+                    <div><span>Activity</span><b>{{ profile.activity }}</b></div>
+                    <div><span>Diet</span><b>{{ profile.diet }}</b></div>
+                    <div><span>Equipment</span><b>{{ profile.equipment or "No equipment" }}</b></div>
+                </div>
+                <form method="post" action="{{ url_for('main.generate') }}" class="mt-4">
+                    <button class="btn btn-success w-100 py-2">
+                        <i class="bi bi-stars"></i> Generate My AI Fitness Plan
+                    </button>
+                </form>
+            </div>
+        </div>
+        <div class="col-lg-5">
+            <div class="simple-card h-100">
+                <div class="simple-card-icon">🤖</div>
+                <h5>How Gemini helps</h5>
+                <p>It uses your profile information to prepare a simple weekly workout routine and general nutrition guidance.</p>
+                <ul class="simple-list">
+                    <li><i class="bi bi-check-circle"></i> Weekly schedule</li>
+                    <li><i class="bi bi-check-circle"></i> Exercise suggestions</li>
+                    <li><i class="bi bi-check-circle"></i> Recovery tips</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="empty-state">
+        <div class="empty-icon">📝</div>
+        <h4>Your fitness profile is empty</h4>
+        <p>Complete your profile first, then generate your AI plan.</p>
+        <a class="btn btn-primary" href="{{ url_for('main.profile') }}">Create Fitness Profile</a>
+    </div>
+    {% endif %}
+
+    <div class="mt-5">
+        <div class="section-heading left">
+            <span>PLAN HISTORY</span>
+            <h3>My previous plans</h3>
+        </div>
+        <div class="list-group plan-list">
+            {% for plan in plans %}
+            <a class="list-group-item list-group-item-action" href="{{ url_for('main.plan', plan_id=plan.id) }}">
+                <div class="plan-list-icon">📋</div>
+                <div>
+                    <b>{{ plan.title }}</b>
+                    <small>{{ plan.created_at.strftime('%d %b %Y, %I:%M %p') }}</small>
+                </div>
+                <i class="bi bi-chevron-right ms-auto"></i>
+            </a>
+            {% else %}
+            <div class="text-muted">No plans generated yet.</div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

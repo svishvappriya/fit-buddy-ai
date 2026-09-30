@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Login - Fit Buddy{% endblock %}
+{% block content %}
+<div class="auth-page">
+    <div class="auth-card">
+        <div class="auth-logo">💪</div>
+        <h2>Welcome back</h2>
+        <p class="text-muted">Login to view your fitness dashboard.</p>
+        <form method="post">
+            <label>Email</label>
+            <div class="input-group mb-3">
+                <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+                <input class="form-control" type="email" name="email" placeholder="you@example.com" required>
+            </div>
+            <label>Password</label>
+            <div class="input-group mb-3">
+                <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                <input class="form-control" type="password" name="password" placeholder="Enter password" required>
+            </div>
+            <button class="btn btn-primary w-100 py-2">Login</button>
+        </form>
+        <p class="text-center mt-4 mb-0">New here?
+            <a href="{{ url_for('auth.register') }}">Create an account</a>
+        </p>
+    </div>
+</div>
+{% endblock %}

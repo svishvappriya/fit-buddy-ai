@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Admin - Fit Buddy{% endblock %}
+{% block content %}
+<div class="container page-wrap">
+    <div class="page-title">
+        <div>
+            <span class="small-label">ADMIN</span>
+            <h2>Project Dashboard</h2>
+            <p>Basic statistics for the college project.</p>
+        </div>
+        <div class="page-emoji">🛠️</div>
+    </div>
+    <div class="row g-3 mb-4">
+        <div class="col-md-4"><div class="stat-card"><span>Total Users</span><strong>{{ users|length }}</strong><small>Registered accounts</small></div></div>
+        <div class="col-md-4"><div class="stat-card"><span>Profiles</span><strong>{{ profiles }}</strong><small>Fitness profiles</small></div></div>
+        <div class="col-md-4"><div class="stat-card"><span>AI Plans</span><strong>{{ plans }}</strong><small>Generated plans</small></div></div>
+    </div>
+    <div class="card clean-card p-4">
+        <h5>Registered Users</h5>
+        <div class="table-responsive">
+            <table class="table align-middle mt-3">
+                <tr><th>Name</th><th>Email</th><th>Role</th><th>Joined</th></tr>
+                {% for u in users %}
+                <tr><td>{{ u.name }}</td><td>{{ u.email }}</td><td>{{ u.role }}</td><td>{{ u.created_at.strftime('%d-%m-%Y') }}</td></tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
